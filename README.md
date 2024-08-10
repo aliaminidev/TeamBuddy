@@ -19,13 +19,11 @@
 
 🚀 Here's what I'm working on:
 
-- Custom Exception Handling in ASP.NET Core and CQRS
-- Tailored Response Objects for CQRS
+- Custom Exception Handling
 - Advanced Entity Framework Core Setup
 - Third-Party Service Integration
 - Comprehensive API Development
-- Data Seeding with Entity Framework Core
-- Extensive Unit Testing for CQRS
+- Extensive Unit Testing
 - MVC Client Implementation
 - JWT-based Authentication and Authorization
 - Swagger Enhancements for Token-based Authentication
