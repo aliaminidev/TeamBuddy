@@ -2,7 +2,7 @@
 
 ## 🚧 THIS PROJECT IS CURRENTLY UNDER ACTIVE DEVELOPMENT 🚧
 
-### Current Features
+## Current Features
 
 - Clean Architecture Implementation
 - SOLID Design Principles
