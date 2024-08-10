@@ -17,7 +17,7 @@
 
 ## Upcoming Features
 
-🚀 Here's what we're working on:
+🚀 Here's what I'm working on:
 
 - Custom Exception Handling in ASP.NET Core and CQRS
 - Tailored Response Objects for CQRS
