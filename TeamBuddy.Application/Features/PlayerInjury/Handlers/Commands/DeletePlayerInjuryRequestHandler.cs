@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.PlayerInjury.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -18,7 +19,9 @@ namespace TeamBuddy.Application.Features.PlayerInjury.Handlers.Commands
 
         public async Task Handle(DeletePlayerInjuryRequest request, CancellationToken cancellationToken)
         {
-            var playerInjury = await _playerInjuryRepository.Get(request.Id);
+            var playerInjury = await _playerInjuryRepository.Get(request.Id)
+                ?? throw new NotFoundException(nameof(Domain.PlayerInjury), request.Id);
+
             await _playerInjuryRepository.Delete(playerInjury);
         }
     }

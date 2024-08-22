@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.BaseData.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -18,7 +19,9 @@ namespace TeamBuddy.Application.Features.BaseData.Handlers.Commands
 
         public async Task Handle(DeleteBaseDataRequest request, CancellationToken cancellationToken)
         {
-            var baseData = await _baseDataRepository.Get(request.Id);
+            var baseData = await _baseDataRepository.Get(request.Id) 
+                ?? throw new NotFoundException(nameof(Domain.BaseData), request.Id);
+
             await _baseDataRepository.Delete(baseData);
         }
     }

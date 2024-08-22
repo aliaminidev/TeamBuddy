@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.PlayerMatchPerformance.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -19,7 +20,9 @@ namespace TeamBuddy.Application.Features.PlayerMatchPerformance.Handlers.Command
 
         public async Task Handle(DeletePlayerMatchPerformanceRequest request, CancellationToken cancellationToken)
         {
-            var playerMatchPerformance = await _playerMatchPerformanceRepository.Get(request.Id);
+            var playerMatchPerformance = await _playerMatchPerformanceRepository.Get(request.Id)
+                ?? throw new NotFoundException(nameof(Domain.PlayerMatchPerformance), request.Id);
+
             await _playerMatchPerformanceRepository.Delete(playerMatchPerformance);
         }
     }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.TeamMember.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -18,7 +19,9 @@ namespace TeamBuddy.Application.Features.TeamMember.Handlers.Commands
 
         public async Task Handle(DeleteTeamMemberRequest request, CancellationToken cancellationToken)
         {
-            var teamMember = await _teamMemberRepository.Get(request.Id);
+            var teamMember = await _teamMemberRepository.Get(request.Id)
+                ?? throw new NotFoundException(nameof(Domain.TeamMember), request.Id);
+
             await _teamMemberRepository.Delete(teamMember);
         }
     }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.TrainingAttendance.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -18,7 +19,9 @@ namespace TeamBuddy.Application.Features.TrainingAttendance.Handlers.Commands
 
         public async Task Handle(DeleteTrainingAttendanceRequest request, CancellationToken cancellationToken)
         {
-            var trainingAttendance = await _trainingAttendanceRepository.Get(request.Id);
+            var trainingAttendance = await _trainingAttendanceRepository.Get(request.Id)
+                ?? throw new NotFoundException(nameof(Domain.TrainingAttendance), request.Id);
+
             await _trainingAttendanceRepository.Delete(trainingAttendance);
         }
     }

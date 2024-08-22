@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using TeamBuddy.Application.Exceptions;
 using TeamBuddy.Application.Features.Club.Requests.Commands;
 using TeamBuddy.Application.Persistence.Contracts;
 
@@ -18,7 +19,9 @@ namespace TeamBuddy.Application.Features.Club.Handlers.Commands
 
         public async Task Handle(DeleteClubRequest request, CancellationToken cancellationToken)
         {
-            var club = await _clubRepository.Get(request.Id);
+            var club = await _clubRepository.Get(request.Id)
+                ?? throw new NotFoundException(nameof(Domain.Club), request.Id);
+
             await _clubRepository.Delete(club);
         }
     }
